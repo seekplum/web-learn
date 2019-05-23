@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>操作列表</title>
+    <!-- CSS Here -->
+    <style>
+        select {
+            height: 200px;
+            width: 300px;
+        }
+    </style>
+</head>
+<body>
+<form data-bind="submit:addItem">
+    新增一项:
+    <input type="text" data-bind='value:itemToAdd, valueUpdate:"afterkeydown"'/>
+    <button type="submit" data-bind="enable: itemToAdd().length > 0">添加</button>
+</form>
+<p>已添加的选项:</p>
+<select multiple="multiple" data-bind="options:allItems, selectedOptions:selectedItems"> </select>
+<div>
+    <button data-bind="click:removeSelected, enable: selectedItems().length > 0">删除</button>
+    <button data-bind="click:sortItems, enable:allItems().length > 1">排序</button>
+</div>
+</body>
+<!-- JavaScript Files Here -->
+<script type="text/javascript" src="js/knockout-min.js"></script>
+<script>
+    let BetterListModel = function () {
+        const defaultValue = ""; // 默认显示的值
+        this.itemToAdd = ko.observable(defaultValue);
+        // 初始化显示的数据
+        this.allItems = ko.observableArray(["C", "Python", "HTML", "C++", "Java", "Golang"]);
+        // 初始化默认选中的数据
+        this.selectedItems = ko.observableArray(["Python"]);
+
+        this.addItem = function () {
+            if ((this.itemToAdd().length > 0) && (this.allItems.indexOf(this.itemToAdd()) < 0)) {
+                this.allItems.push(this.itemToAdd())
+            }
+
+            // 清除保存后的数据内容
+            this.itemToAdd(defaultValue)
+        };
+
+        // 清除被选中的元素
+        this.removeSelected = function () {
+            this.allItems.removeAll(this.selectedItems());
+            // debugger;
+            // this.allItems 是一个函数, 其 length属性是 0
+            // this.allItems() 是一个具体的值，在当前代码中就是一个数组
+            console.log(this.allItems);
+            console.log(this.allItems());
+            console.log("this.allItems length: ", this.allItems.length);
+            console.log("this.allItems() length: ", this.allItems().length);
+            let length = this.allItems().length;
+            // 删除选中的后默认显示剩下的最后一个
+            if (length > 0) {
+                let selectValue = this.allItems()[length - 1];
+                this.selectedItems([selectValue])
+            } else {
+                this.selectedItems([])
+            }
+        };
+
+        // 对所有元素进行排序
+        this.sortItems = function () {
+            this.allItems.sort();
+        }
+    };
+
+    ko.applyBindings(new BetterListModel())
+</script>
+</html>

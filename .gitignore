@@ -1,0 +1,18 @@
+# Python
+*.egg-info
+*.egg
+*.pyc
+.cache
+test.py
+build
+dist
+
+# Translations
+*.mo
+*.dat
+.idea
+.DS_Store
+.vscode
+.pytest_cache
+.coverage
+.env
