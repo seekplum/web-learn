@@ -1,0 +1,97 @@
+
+* {
+    text-decoration: none;
+    font-size: 100%;
+    outline: none;
+    margin: 0;
+    padding: 0;
+}
+
+
+body {
+    font-family: arial;
+    line-height: 1.6em;
+}
+
+
+div {
+    display: block;
+}
+
+
+table {
+    display: table;
+    border-spacing: 2px;
+    border-color: grey;
+    border-width: 0;
+}
+
+tbody {
+    display: table-row-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+
+
+tr {
+    vertical-align: top;
+    display: table-row;
+}
+
+tr, th, td {
+    width: auto;
+    height: auto;
+    background-color: transparent;
+    border: none;
+}
+
+td.label {
+    text-align: right;
+    padding-right: 0.5em;
+}
+
+h3 {
+    display: block;
+    font-size: 1.17em;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+}
+
+.liveExample {
+    padding: 1em;
+    background-color: #EEEEDD;
+    border: 1px solid #CCC;
+    max-width: 655px
+}
+
+
+.liveExample th, .liveExample td {
+    padding: .8em;
+}
+
+.liveExample th, .liveExample td {
+    border-bottom: 1px solid #ddd;
+    border-right: 1px solid #ccc;
+}
+
+.liveExample table {
+    border-top: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+
+    margin-bottom: 1.6em;
+    border-collapse: collapse;
+}
+
+.liveExample td {
+    padding: .8em;
+    border-bottom: 1px solid #ddd;
+    border-right: 1px solid #ccc;
+}
+
+.readout {
+    width: 17em;
+    float: right;
+}
