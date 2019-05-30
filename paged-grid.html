@@ -5,7 +5,7 @@
     <title>分页</title>
 
     <!-- CSS Here -->
-    <link rel="stylesheet" type="text/css" href="css/paged-grid.css">
+    <link rel="stylesheet" type="text/css" href="static/css/paged-grid.css">
     <style>
     </style>
 </head>
@@ -16,7 +16,7 @@
 
     <div data-bind="simpleGrid: gridViewModel">
         <table class="ko-grid" cellspacing="0">
-            <thead>
+            <thead>git
             <tr data-bind="foreach: columns">
                 <th data-bind="text: headerText">项目</th>
                 <th data-bind="text: headerText">销售统计</th>
@@ -87,8 +87,8 @@
 </div>
 </body>
 <!-- JavaScript Files Here -->
-<script type="text/javascript" src="js/knockout-min.js"></script>
-<script type="text/javascript" src="js/knockout.simpleGrid.3.0.js"></script>
+<script type="text/javascript" src="static/js/knockout-min.js"></script>
+<script type="text/javascript" src="static/js/knockout.simpleGrid.3.0.js"></script>
 <script>
     let initialData = [
         {name: "C", sales: 1, price: 9},
