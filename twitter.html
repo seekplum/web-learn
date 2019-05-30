@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>推特</title>
+    <!--可以下载到本地， 下载地址: https://fontawesome.com/download-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+          integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous"/>
+
+    <!-- CSS Here -->
+    <style>
+        .tweet {
+            display: flex;
+            align-items: flex-start;
+            border: 1px solid #ccc;
+            padding: 10px;
+
+            font-family: Helvetica, Arial, sans-serif;
+            font-size: 14px;
+        }
+
+        .content {
+            flex: 1;
+        }
+
+        .avatar {
+            margin-right: 10px;
+            width: 48px;
+            border-radius: 50%;
+        }
+
+        .actions {
+            display: flex;
+            padding: 0;
+        }
+
+        .actions li {
+            list-style: none;
+            margin-right: 30px;
+        }
+
+        p, ul {
+            margin: 0;
+        }
+
+        .author-meta, p {
+            margin-bottom: 1em;
+        }
+
+        .name {
+            font-weight: 600;
+        }
+
+        .handle, .time {
+            color: #657786;
+        }
+
+        .handle::after {
+            content: " \00b7";
+        }
+
+        .actions button {
+            border: none;
+            color: #657786;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .actions button:hover {
+            color: #1da1f2;
+        }
+
+    </style>
+</head>
+<body>
+<!--article 标签代表文章类内容-->
+<article class="tweet">
+    <img class="avatar" src="http://www.gravatar.com/avatar" alt="Name"/>
+    <div class="content">
+        <div class="author-meta">
+            <span class="handle">@handle</span>
+            <span class="name">Name</span>
+            <span class="time">2h ago</span>
+        </div>
+        <!--p 标签代表段落-->
+        <p>
+            Some insightful message.
+        </p>
+        <!--ul 标签代表无序列-->
+        <ul class="actions">
+            <li>
+                <button>
+                    <i class="fas fa-reply" aria-hidden="true"></i>
+                    <span class="sr-only">Reply</span>
+                </button>
+            </li>
+            <li>
+                <button>
+                    <i class="fas fa-retweet" aria-hidden="true"></i>
+                    <span class="sr-only">Retweet</span>
+                </button>
+            </li>
+            <li>
+                <button>
+                    <!--<i class="fas fa-heart" aria-hidden="true"></i>-->
+                    <i class="fa fa-camera-retro" aria-hidden="true"></i>
+                    <span class="sr-only">Like</span>
+                </button>
+            </li>
+            <li>
+                <button>
+                    <span aria-hidden="true">...</span>
+                    <span class="sr-only">More Actions</span>
+                </button>
+            </li>
+        </ul>
+    </div>
+</article>
+</body>
+</html>
