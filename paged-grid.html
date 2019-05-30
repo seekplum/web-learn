@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>分页</title>
+
+    <!-- CSS Here -->
+    <link rel="stylesheet" type="text/css" href="css/paged-grid.css">
+    <style>
+    </style>
+</head>
+<body>
+
+<h2>Live example</h2>
+<div class="liveExample">
+
+    <div data-bind="simpleGrid: gridViewModel">
+        <table class="ko-grid" cellspacing="0">
+            <thead>
+            <tr data-bind="foreach: columns">
+                <th data-bind="text: headerText">项目</th>
+                <th data-bind="text: headerText">销售统计</th>
+                <th data-bind="text: headerText">价格</th>
+            </tr>
+            </thead>
+            <tbody data-bind="foreach: itemsOnCurrentPage">
+            <tr data-bind="foreach: $parent.columns">
+                <td data-bind="text: typeof rowText == 'function' ? rowText($parent) : $parent[rowText] ">Well-Travelled
+                    Kitten
+                </td>
+                <td data-bind="text: typeof rowText == 'function' ? rowText($parent) : $parent[rowText] ">352</td>
+                <td data-bind="text: typeof rowText == 'function' ? rowText($parent) : $parent[rowText] ">$75.95</td>
+            </tr>
+            <tr data-bind="foreach: $parent.columns">
+                <td data-bind="text: typeof rowText == 'function' ? rowText($parent) : $parent[rowText] ">Speedy
+                    Coyote
+                </td>
+                <td data-bind="text: typeof rowText == 'function' ? rowText($parent) : $parent[rowText] ">89</td>
+                <td data-bind="text: typeof rowText == 'function' ? rowText($parent) : $parent[rowText] ">$190.00</td>
+            </tr>
+            <tr data-bind="foreach: $parent.columns">
+                <td data-bind="text: typeof rowText == 'function' ? rowText($parent) : $parent[rowText] ">Furious
+                    Lizard
+                </td>
+                <td data-bind="text: typeof rowText == 'function' ? rowText($parent) : $parent[rowText] ">152</td>
+                <td data-bind="text: typeof rowText == 'function' ? rowText($parent) : $parent[rowText] ">$25.00</td>
+            </tr>
+            <tr data-bind="foreach: $parent.columns">
+                <td data-bind="text: typeof rowText == 'function' ? rowText($parent) : $parent[rowText] ">Indifferent
+                    Monkey
+                </td>
+                <td data-bind="text: typeof rowText == 'function' ? rowText($parent) : $parent[rowText] ">1</td>
+                <td data-bind="text: typeof rowText == 'function' ? rowText($parent) : $parent[rowText] ">$99.95</td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="ko-grid-pageLinks"><span>Page:</span>
+            <!-- ko foreach: ko.utils.range(0, maxPageIndex) -->
+            <a href="#"
+               data-bind="text: $data + 1, click: function() { $root.currentPageIndex($data) }, css: { selected: $data == $root.currentPageIndex() }"
+               class="selected">1</a>
+            <a href="#"
+               data-bind="text: $data + 1, click: function() { $root.currentPageIndex($data) }, css: { selected: $data == $root.currentPageIndex() }">2</a>
+            <a href="#"
+               data-bind="text: $data + 1, click: function() { $root.currentPageIndex($data) }, css: { selected: $data == $root.currentPageIndex() }">3</a>
+            <a href="#"
+               data-bind="text: $data + 1, click: function() { $root.currentPageIndex($data) }, css: { selected: $data == $root.currentPageIndex() }">4</a>
+            <a href="#"
+               data-bind="text: $data + 1, click: function() { $root.currentPageIndex($data) }, css: { selected: $data == $root.currentPageIndex() }">5</a>
+            <!-- /ko -->
+        </div>
+    </div>
+
+    <button data-bind="click: addItem">
+        增加选项
+    </button>
+
+    <button data-bind="click: sortByName">
+        按名字排序
+    </button>
+
+    <button data-bind="click: jumpToFirstPage, enable: gridViewModel.currentPageIndex" disabled="">
+        跳到第一页
+    </button>
+
+
+</div>
+</body>
+<!-- JavaScript Files Here -->
+<script type="text/javascript" src="js/knockout-min.js"></script>
+<script type="text/javascript" src="js/knockout.simpleGrid.3.0.js"></script>
+<script>
+    let initialData = [
+        {name: "C", sales: 1, price: 9},
+        {name: "C++", sales: 2, price: 8},
+        {name: "HTML", sales: 3, price: 7},
+        {name: "JavaScript", sales: 4, price: 6},
+        {name: "Java", sales: 5, price: 5},
+        {name: "Python", sales: 6, price: 4},
+        {name: "Golang", sales: 7, price: 3},
+        {name: "MySQL", sales: 8, price: 2},
+        {name: "Oracle", sales: 9, price: 1},
+        {name: "Redis", sales: 10, price: 0}
+    ];
+
+    let PagedGridModel = function (items) {
+        this.items = ko.observableArray(items);
+
+        this.addItem = function () {
+            this.items.push({name: "New item", sales: 0, price: 100});
+        };
+
+        this.sortByName = function () {
+            this.items.sort(function (a, b) {
+                return a.name < b.name ? -1 : 1;
+            });
+        };
+
+        this.jumpToFirstPage = function () {
+            this.gridViewModel.currentPageIndex(0);
+        };
+
+        this.gridViewModel = new ko.simpleGrid.viewModel({
+            data: this.items,
+            columns: [
+                {headerText: "项目", rowText: "name"},
+                {headerText: "销售统计", rowText: "sales"},
+                {
+                    headerText: "价格", rowText: function (item) {
+                        return "$" + item.price.toFixed(2)
+                    }
+                }
+            ],
+            pageSize: 4
+        });
+    };
+
+    ko.applyBindings(new PagedGridModel(initialData));
+
+</script>
+</html>
