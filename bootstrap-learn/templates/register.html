@@ -1,0 +1,62 @@
+{% load staticfiles %}
+<!doctype html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery带放大镜LightBox画廊代码</title>
+    <a href="{% url "login" %}">主页面</a>
+    <p><mark><a href="{% url "index" %}">提示框</a></mark></p>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/htmleaf-demo.css' %}">
+    <link type="text/css" rel="stylesheet" media="all" href="{% static 'css/jquery.zbox.css' %}" />
+
+    <style>
+        #wrapper
+        {
+            margin:30px auto;
+            width:640px;
+        }
+        #wrapper img
+        {
+            width:300px;
+            height:200px;
+            margin:10px;
+            float:left;
+        }
+        h1
+        {
+            margin:30px auto;
+            text-align:center;
+        }
+    </style>
+</head>
+<body>
+    <div class="htmleaf-container">
+        <h1>jQuery带放大镜LightBox画廊代码</h1>
+            <div id="wrapper">
+                <a class="zb" rel="group" href="{% static 'image/1.jpg' %}" title="long">
+                    <img src="{% static 'image/1.jpg' %}"/>
+                </a>
+            </div>
+            <div id="wrapper">
+                <a class="video-autoplay" rel="group" href="http://storage.56iq.net/group1/M00/00/0A/CgoKRFcQ5OuAMkyuAA-XJfw93Ug669.mp4" title="long">
+                    <video src="http://storage.56iq.net/group1/M00/00/0A/CgoKRFcQ5OuAMkyuAA-XJfw93Ug669.mp4" style="width: 340px; height: 340px;" controls='controls'></video>
+                </a>
+            </div>
+    </div>
+
+    <script src="{% static 'js/jquery-2.1.1.min.js' %}" ></script>
+    <script src="{% static 'js/jquery.zbox.min.js' %}"></script>
+    <script>
+        jQuery(document).ready(function(){
+            jQuery(".zb").zbox({
+                margin:40
+            });
+        });
+    </script>
+
+    <div style="text-align:center;margin:50px 0; font:normal 14px/24px 'MicroSoft YaHei';">
+    </div>
+</body>
+</html>

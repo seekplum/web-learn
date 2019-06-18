@@ -1,0 +1,163 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:background-color="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Bootstrap test</title>
+        <title>jQuery带放大镜LightBox画廊代码</title>
+        <a href="{% url "login" %}">主页面</a>
+        <p><mark><a href="{% url "register" %}">画廊</a></mark></p>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{% static 'bootstrap/css/app.css' %}">
+        <link rel="stylesheet" href="{% static 'bootstrap/css/mmGrid-bootstrap.css' %}">
+        <link rel="stylesheet" href="{% static 'bootstrap/css/AdminLTE.css' %}"><!--框-->
+        <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap-notify.css' %}"><!--对此页面无用-->
+        <link rel="stylesheet" href="{% static 'bootstrap/css/dataTables.bootstrap.css' %}"><!--对此页面无用-->
+        <link rel="stylesheet" href="{% static 'bootstrap/css/font-awesome.min.css' %}"><!--对此页面无用-->
+        <link rel="stylesheet" href="{% static 'bootstrap/css/animate.css' %}"><!--对此页面无用-->
+
+        <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}"/>
+        <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap-theme.css' %}">
+        <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap-theme.min.css' %}">
+
+
+        <script src="{% static 'js/jquery-2.0.0.js' %}"></script>
+
+        <style>
+            #success_div
+            {
+                display: none;
+            }
+            #info_div
+            {
+                display: none;
+            }
+            #warn_div
+            {
+                display: none;
+            }
+            #danger_div
+            {
+                display: none;
+            }
+            .ui-btn-back{
+                margin-bottom: 15px;
+            }
+        </style>
+        {#   只能注释一行     #}
+        <!-- 可以注释多行 -->
+        <!--
+            <script>
+                $(document).ready(function(){
+                    $("#warn_div").hide();  //jquery隐藏，不知道这里为什么会闪现一下再被隐藏
+                });
+            </script>
+        -->
+    </head>
+    <body>
+        <br><br><br>
+        <div class="ui-btn-back">
+            <button type="button" class="btn btn-default btn-back">
+                <i class="glyphicon glyphicon-chevron-left"></i><!-- 在按钮上加图标 -->
+                返回
+            </button>
+        </div>
+
+        <div class="panel-group" id="accordion">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion"
+                    href="#collapseexample">
+                        菜单管理
+                    </a>
+                    </h4>
+                </div>
+                <div id="collapseexample" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <li><a href="http://cn.bing.com/">必应</a></li>
+                        <li><a href="http://www.baidu.com/">百度</a></li>
+                        <li><a href="http://www.google.com/">谷歌</a></li>
+                    </div>
+                    <div class="panel-body">
+                        <a href="http://cn.bing.com/">必应</a>
+                    </div>
+                    <div class="panel-body">
+                        <a href="http://www.baidu.com/">百度</a>
+                    </div>
+                    <div class="panel-body">
+                        <a href="http://www.google.com/">谷歌</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <a href="#" class="btn btn-success" data-toggle="tab" onclick="$('#success_div').show();">成功</a>
+        <a href="#" class="btn btn-info" data-toggle="tab" onclick="$('#info_div').show();">信息</a>
+        <a href="#" class="btn btn-warning" data-toggle="tab" onclick="$('#warn_div').show();">警示</a>
+        <a href="#" class="btn btn-danger" data-toggle="tab" onclick="$('#danger_div').show();">危险</a>
+
+        <div class="alert alert-success" id="success_div">
+            <a href="#" class="close" onclick="$('#success_div').hide();">
+                 &times;
+            </a>
+            <strong>成功！</strong>您的操作成功了。
+        </div>
+        <div class="alert alert-info" id="info_div">
+            <a href="#" class="close" onclick="$('#info_div').hide();">
+                 &times;
+            </a>
+            <strong>信息！</strong>这是一个信息提示。
+        </div>
+        <div class="alert alert-warning" id="warn_div">
+            <a href="#" class="close" onclick="$('#warn_div').hide();">
+                 &times;
+            </a>
+            <strong>警告！</strong>您的网络连接有问题。
+        </div>
+        <div class="alert alert-danger" id="danger_div">
+            <a href="#" class="close" onclick="$('#danger_div').hide();">
+                 &times;
+            </a>
+            <strong>危险！</strong>您的操作很危险。
+        </div>
+        <br><br>
+
+        <div class="form-group form-group-lg">
+            <label class="col-sm-2 control-label" for="formGroupInputLarge">大输入框</label>
+            <div class="col-sm-6">
+                <input class="form-control" type="text" id="formGroupInputLarge" placeholder="大输入框">
+            </div>
+        </div>
+        <br>
+        <div class="line line-dashed b-b line-lg pull-in"></div>
+        <div class="form-group form-group-sm">
+            <label class="col-sm-2 control-label" for="formGroupInputSmall">小输入框</label>
+            <div class="col-sm-6">
+                <input class="form-control" type="text" id="formGroupInputSmall" placeholder="小输入框">
+            </div>
+        </div>
+        <br>
+        <div class="line line-dashed b-b line-lg pull-in"></div>
+        <div class="form-group ">
+            <label class="col-sm-2 control-label" style="text-align: right;">正常输入框</label>
+            <div class="col-sm-6">
+                <input class="form-control" type="text" id="formGroupInputSmall" placeholder="正常输入框">
+            </div>
+        </div>
+
+        <!-- 返回按钮 -->
+        <script>
+            $(function(){
+                $('.btn-back').click(function(){
+                    window.history.back();
+                });
+            })
+        </script>
+        <script src="{% static 'bootstrap/js/bootstrap-3.0.3.min.js' %}"></script>
+        <script src="{% static 'bootstrap/js/npm.js' %}"></script>
+    </body>
+</html>

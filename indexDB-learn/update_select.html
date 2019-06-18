@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>信息</title>
+    <script type="text/javascript">
+
+        //指定主键自动增长
+        function insertAutoInc(indexDbName) {
+            var userinfos = [{
+                id: 1001,
+                name: "小李",
+                age: 24
+            }, {
+                id: 1002,
+                name: "校长",
+                age: 40
+            },
+                {
+                    id: 1003,
+                    name: "学生",
+                    age: 50
+                },
+                {
+                    id: 1004,
+                    name: "小东",
+                    age: 34
+                },
+                {
+                    id: 1005,
+                    name: "老王",
+                    age: 24
+                }, {
+                    id: 1006,
+                    name: "王麻子",
+                    age: 28
+                }];
+            var openRequest = indexedDB.open(indexDbName, 2);
+            openRequest.onerror = function (e) {//当创建数据库失败时候的回调
+                console.log("Database error: " + e.target.errorCode);
+            };
+            openRequest.onsuccess = function (event) {
+                console.log("Database created");
+                db = openRequest.result; //创建数据库成功时候，将结果给db，此时db就是当前数据库
+                //alert("this is :"+db);
+                //打开和userinfo相关的objectstore的事物
+                var transaction = db.transaction("userinfo", 'readwrite');
+                var store = transaction.objectStore("userinfo");
+                for (var i = 0; i < userinfos.length; i++) {
+                    //alert("add"+userinfos[i]);
+                    store.add(userinfos[i]);//将对象添加至userinfo相关的objectstore中
+                }
+            };
+            openRequest.onupgradeneeded = function (event) {
+                var db = event.target.result;
+                //在第一次创建数据库的时候，就创建userinfo相关的objectstore，以供后面添加数据时候使用
+                if (!db.objectStoreNames.contains('userinfo')) {
+                    //keyPath:Javascript对象，对象必须有一属性作为键值
+                    var objectStore = db.createObjectStore('userinfo', {autoIncrement: true});
+                    objectStore.createIndex('nameIndex', 'name', {unique: true});//这里假定名字不能重复，创建基于name的唯一索引
+                    objectStore.createIndex('ageIndex', 'age', {unique: false});//创建基于age的索引
+                }
+            }
+        }
+
+
+        //删除数据库
+        function deleteDatabase(indexDbName) {
+            var deleteDbRequest = indexedDB.deleteDatabase(indexDbName);
+            deleteDbRequest.onsuccess = function (event) {
+                console.log("detete database success");
+            };
+            deleteDbRequest.onerror = function (e) {
+                console.log("Database error: " + e.target.errorCode);
+            };
+        }
+
+        function getDataByIndex(indexDbName) {
+            var openRequest = indexedDB.open(indexDbName);
+            var db;
+            openRequest.onerror = function (e) {//当创建数据库失败时候的回调
+                console.log("Database error: " + e.target.errorCode);
+            };
+            openRequest.onsuccess = function (event) {
+                console.log("Database created");
+                db = openRequest.result; //创建数据库成功时候，将结果给db，此时db就是当前数据库
+                var transaction = db.transaction("userinfo", 'readwrite');
+                var objectStore = transaction.objectStore("userinfo");
+                var nameIndex = objectStore.index("nameIndex"); //获得nameIndex索引
+                nameIndex.get("小李").onsuccess = function (e) { //根据name索引获得数据成功的回调
+                    var userinfo = e.target.result;
+                    console.log("id:" + userinfo.id + "==name:" + userinfo.name + "==age:" + userinfo.age);
+                }
+            }
+        }
+
+        function getDataByAgeIndex(indexDbName) {
+            var openRequest = indexedDB.open(indexDbName);
+            var db;
+            openRequest.onerror = function (e) {//当创建数据库失败时候的回调
+                console.log("Database error: " + e.target.errorCode);
+            };
+            openRequest.onsuccess = function (event) {
+                console.log("Database created");
+                db = openRequest.result; //创建数据库成功时候，将结果给db，此时db就是当前数据库
+                var transaction = db.transaction("userinfo", 'readwrite');
+                var objectStore = transaction.objectStore("userinfo");
+                var nameIndex = objectStore.index("ageIndex"); //获得ageIndex索引
+                var request = nameIndex.openCursor();//openCursor没有参数的时候，表示获得所有数据
+                request.onsuccess = function (e) {//openCursor成功的时候回调该方法
+                    var cursor = e.target.result;
+                    if (cursor) {//循环遍历cursor
+                        var userinfo = cursor.value;
+                        //alert(userinfo.name);
+                        console.log("id:" + userinfo.id + "==name:" + userinfo.name + "==age:" + userinfo.age);
+                        cursor.continue();
+                    }
+                    ;
+                }
+            }
+        }
+
+        function iDBKeyRangeIndex(indexDbName) {
+            var openRequest = indexedDB.open(indexDbName);
+            var db;
+            openRequest.onerror = function (e) {//当创建数据库失败时候的回调
+                console.log("Database error: " + e.target.errorCode);
+            };
+            openRequest.onsuccess = function (event) {
+                console.log("Database created");
+                db = openRequest.result; //创建数据库成功时候，将结果给db，此时db就是当前数据库
+                var transaction = db.transaction("userinfo", 'readwrite');
+                var objectStore = transaction.objectStore("userinfo");
+                var nameIndex = objectStore.index("ageIndex"); //获得ageIndex索引
+                // var request = nameIndex.openCursor(IDBKeyRange.only(Number(24)));//openCursor没有参数的时候，表示获得所有数据
+                var request = nameIndex.openCursor(IDBKeyRange.lowerBound(Number(28), true));
+                request.onsuccess = function (e) {//openCursor成功的时候回调该方法
+                    var cursor = e.target.result;
+                    if (cursor) {//循环遍历cursor
+                        var userinfo = cursor.value;
+                        //alert(userinfo.name);
+                        console.log("id:" + userinfo.id + "==name:" + userinfo.name + "==age:" + userinfo.age);
+                        cursor.continue();
+                    }
+                    ;
+                }
+            }
+        }
+
+    </script>
+</head>
+<body>
+    <a href="javascript:deleteDatabase('firstdb')">删除数据库</a>
+    <br><br>
+
+    <a href="javascript:insertAutoInc('firstdb')">创建数据库，同时插入自增的数据</a>
+    <br><br>
+    <a href="javascript:getDataByIndex('firstdb')">根据唯一索引获取数据</a>
+    <br><br>
+    <a href="javascript:getDataByAgeIndex('firstdb')">根据age索引获取数据</a>
+    <br><br>
+    <a href="javascript:iDBKeyRangeIndex('firstdb')">IDBKeyRange获取数据</a>
+
+</body>
+</html>
