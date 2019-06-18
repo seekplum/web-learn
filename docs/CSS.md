@@ -102,7 +102,7 @@ a:active {color: white;} /* 正在被点击的链接 */
 
 ## CSS 盒子模型
 
-![盒子模型](/static/images/ct_boxmodel.gif)
+![盒子模型](static/images/ct_boxmodel.gif)
 
 ## CSS 边框属性
 
