@@ -17,3 +17,6 @@ dist
 .coverage
 .env
 test.*
+
+# Web
+node_modules

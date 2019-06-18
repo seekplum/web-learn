@@ -6,7 +6,7 @@
 * 2.按照 Create React App 安装指南创建一个新的项目
 
 ```bash
-npx create-react-app my-app
+npx create-react-app react-learn
 ```
 
 * 3.删除掉新项目中 src/ 文件夹下的所有文件。
@@ -14,13 +14,13 @@ npx create-react-app my-app
 注意：不要删除整个 src 文件夹，删除里面的源文件。我们会在接下来的步骤中使用示例代码替换默认源文件。
 
 ```bash
-rm -f my-app/src/*
+rm -f react-learn/src/*
 ```
 
 * 4.创建index.css文件
 
 ```bash
-cat >my-app/src/index.css<<EOF
+cat >react-learn/src/index.css<<EOF
 body {
   font: 14px "Century Gothic", Futura, sans-serif;
   margin: 20px;
@@ -78,7 +78,7 @@ EOF
 * 5.创建index.js文件
 
 ```bash
-cat >my-app/src/index.js<<EOF
+cat >react-learn/src/index.js<<EOF
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
@@ -157,3 +157,7 @@ npm start
 ```
 
 启动后再浏览器上访问[http://localhost:3000](http://localhost:3000)
+
+## 概念
+
+在 React 应用中，数据通过 props 的传递，从父组件流向子组件。
