@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>水平导航条</title>
+    <style>
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        li {
+            float: left;
+        }
+
+        a:link,
+        a:visited {
+            display: block;
+            font-weight: bold;
+            color: #FFFFFF;
+            background-color: #bebebe;
+            width: 120px;
+            text-align: center;
+            padding: 4px;
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+
+        a:hover,
+        a:active {
+            background-color: #cc0000;
+        }
+    </style>
+</head>
+
+<body>
+    <ul>
+        <li><a href="#home">HOME</a></li>
+        <li><a href="#news">NEWS</a></li>
+        <li><a href="#contact">CONTACT</a></li>
+        <li><a href="#about">ABOUT</a></li>
+    </ul>
+    <div id="content">
+    </div>
+</body>
+<script>
+
+    var a = document.getElementsByTagName("a");
+    document.body.onclick = function (event) {
+        var content = document.getElementById("content")
+        console.log("old div content", content.textContent);
+        content.innerText = event.toElement.text;
+    }
+</script>
+
+</html>
