@@ -256,3 +256,35 @@ npx terser -c -m -o like_button.min.js -- like_button.js
 ```
 
 * 4.项目中使用min.js
+
+## React 和 JSX
+
+`like_button.html` 中的示例只依赖了浏览器原生的特性，React和普通的bootstrap等方式使用没有什么区别。
+
+```javascript
+const e = React.createElement;
+
+// 显示一个 "Like" <button>
+return e(
+  'button',
+  { onClick: () => this.setState({ liked: true }) },
+  'Like'
+);
+```
+
+使用React的JSX方式代替上面的实现
+
+```typescript jsx
+// 显示一个 "Like" <button>
+return (
+  <button onClick={() => this.setState({ liked: true })}>
+    Like
+  </button>
+);
+```
+
+## crossorigin属性
+
+为什么要设置crossorigin属性，**可以在React 16及以上版本中有更好的错误处理体验.**
+
+同时建议验证使用的 CDN 是否设置了 `Access-Control-Allow-Origin: *` HTTP请求头

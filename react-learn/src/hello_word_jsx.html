@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Hello World</title>
+</head>
+
+<body>
+    <div id="root"></div>
+</body>
+
+<script src="https://unpkg.com/react@16/umd/react.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js" crossorigin></script>
+
+<!-- 使用JSX方式必须要导入 babel.js -->
+<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+<!-- <script crossorigin type="text/jsx"> -->
+<script crossorigin type="text/babel">
+    ReactDOM.render(
+        <h1>Hello World!</h1>,
+        document.getElementById('root')
+    )
+</script>
+
+</html>
