@@ -1,5 +1,9 @@
 # 入门React
 
+## 中文资料
+
+* [React中文文档](https://react.docschina.org/docs/getting-started.html)
+
 ## 搭建本地开发环境
 
 * 1.确保你安装了较新版本的 Node.js。
@@ -11,7 +15,7 @@ npx create-react-app react-learn
 
 * 3.删除掉新项目中 src/ 文件夹下的所有文件。
 
-注意：不要删除整个 src 文件夹，删除里面的源文件。我们会在接下来的步骤中使用示例代码替换默认源文件。
+注意: 不要删除整个 src 文件夹，删除里面的源文件。我们会在接下来的步骤中使用示例代码替换默认源文件。
 
 ```bash
 rm -f react-learn/src/*
@@ -161,3 +165,74 @@ npm start
 ## 概念
 
 在 React 应用中，数据通过 props 的传递，从父组件流向子组件。
+
+## 原生JavaScript使用React
+
+* test.html
+
+```html
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>一分钟上手React</title>
+</head>
+
+<body>
+
+    <h2>一分钟上手React</h2>
+    <p>演示如何使用React.</p>
+    <p>React加载 Button, 并完成点击事件的监听.</p>
+
+    <!-- React更新的div. -->
+    <div id="like_button_container">
+    </div>
+
+    <!-- 加载 React。-->
+    <!-- 注意: 部署时，将 "development.js" 替换为 "production.min.js"。-->
+    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+
+    <!-- 加载我们的自定义的 React 组件。-->
+
+    <!-- Load our React component. -->
+    <script src="test_like_button.js"></script>
+
+</body>
+
+</html>
+```
+
+* test_like_button.js
+
+```javascript
+'use strict';
+
+const likeElement = React.createElement;
+
+class LikeButton extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { liked: false };
+    }
+    render() {
+        if (this.state.liked) {
+            return likeElement(
+                'button',
+                { onClick: () => this.setState({ liked: false }) },
+                '取消点击'
+            )
+        }
+        return likeElement(
+            'button',
+            { onClick: () => this.setState({ liked: true }) },
+            '点击'
+        );
+    }
+}
+
+
+const domContainer = document.querySelector('#like_button_container');
+ReactDOM.render(likeElement(LikeButton), domContainer);
+```

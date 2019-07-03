@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>入门示例</title>
@@ -7,13 +8,13 @@
 </head>
 
 <body>
-<p>姓: <input data-bind="value: firstName"/></p>
-<p>名字: <input data-bind="value: lastName"/></p>
-<h2>你好, <span data-bind="text: fullName"> </span>!</h2>
+    <p>姓: <input data-bind="value: firstName" /></p>
+    <p>名字: <input data-bind="value: lastName" /></p>
+    <h2>你好, <span data-bind="text: fullName"> </span>!</h2>
 </body>
 
 <!-- JavaScript Files Here -->
-<script type="text/javascript" src="static/js/knockout-min.js"></script>
+<script type="text/javascript" src="../static/js/ko/knockout-min.js"></script>
 <script type="text/javascript">
     // 定义数据模型
     let ViewModel = function (first, last) {

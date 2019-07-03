@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>添加列表</title>
@@ -12,29 +13,31 @@
         }
     </style>
 </head>
+
 <body>
-<form data-bind="submit: addItem">
-    新增一项:
-    <input data-bind='value: itemToAdd, valueUpdate: "afterkeydown"'/>
-    <button type="submit" data-bind="enable: itemToAdd().length > 0">添加</button>
-    <p>已添加的选项:</p>
-    <select multiple="multiple" data-bind="options: items"></select>
-</form>
-<!-- JavaScript Files Here -->
-<script type="text/javascript" src="static/js/knockout-min.js"></script>
-<script>
-    let SimpleListModel = function (items) {
-        const defaultValue = ""; // 默认显示的值
-        this.items = ko.observableArray(items);
-        this.itemToAdd = ko.observable(defaultValue);
-        this.addItem = function () {
-            if (this.itemToAdd().length > 0) {
-                this.items.push(this.itemToAdd());
-                this.itemToAdd(defaultValue)
-            }
-        }.bind(this)
-    };
-    ko.applyBindings(new SimpleListModel(["学习knockoutjs的第一天"]))
-</script>
+    <form data-bind="submit: addItem">
+        新增一项:
+        <input data-bind='value: itemToAdd, valueUpdate: "afterkeydown"' />
+        <button type="submit" data-bind="enable: itemToAdd().length > 0">添加</button>
+        <p>已添加的选项:</p>
+        <select multiple="multiple" data-bind="options: items"></select>
+    </form>
+    <!-- JavaScript Files Here -->
+    <script type="text/javascript" src="../static/js/ko/knockout-min.js"></script>
+    <script>
+        let SimpleListModel = function (items) {
+            const defaultValue = ""; // 默认显示的值
+            this.items = ko.observableArray(items);
+            this.itemToAdd = ko.observable(defaultValue);
+            this.addItem = function () {
+                if (this.itemToAdd().length > 0) {
+                    this.items.push(this.itemToAdd());
+                    this.itemToAdd(defaultValue)
+                }
+            }.bind(this)
+        };
+        ko.applyBindings(new SimpleListModel(["学习knockoutjs的第一天"]))
+    </script>
 </body>
+
 </html>

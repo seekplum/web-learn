@@ -6,6 +6,7 @@
 test.py
 build
 dist
+__pycache__
 
 # Translations
 *.mo
@@ -20,3 +21,6 @@ test.*
 
 # Web
 node_modules
+
+# Database
+db.sqlite3

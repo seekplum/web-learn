@@ -1,98 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>控制类型</title>
-    <link rel="stylesheet" type="text/css" href="static/css/control-types.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/ko/control-types.css">
     <!-- CSS Here -->
     <style>
     </style>
 </head>
+
 <body>
-<div class="liveExample">
-    <div class="readout">
-        <h3>模型中有什么？</h3>
+    <div class="liveExample">
+        <div class="readout">
+            <h3>模型中有什么？</h3>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class="label">文本值:</td>
+                        <td data-bind="text: stringValue"></td>
+                    </tr>
+                    <tr>
+                        <td class="label">密码:</td>
+                        <td data-bind="text: passwordValue"></td>
+                    </tr>
+                    <tr>
+                        <td class="label">布尔值:</td>
+                        <td data-bind="text: booleanValue() ? 'True' : 'False'"></td>
+                    </tr>
+                    <tr>
+                        <td class="label">可选:</td>
+                        <td data-bind="text: selectedOptionValue"></td>
+                    </tr>
+                    <tr>
+                        <td class="label">多选:</td>
+                        <td data-bind="text: multipleSelectedOptionValues"></td>
+                    </tr>
+                    <tr>
+                        <td class="label">单选:</td>
+                        <td data-bind="text: radioSelectedOptionValue"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <h3>HTML 控制器</h3>
         <table>
             <tbody>
-            <tr>
-                <td class="label">文本值:</td>
-                <td data-bind="text: stringValue"></td>
-            </tr>
-            <tr>
-                <td class="label">密码:</td>
-                <td data-bind="text: passwordValue"></td>
-            </tr>
-            <tr>
-                <td class="label">布尔值:</td>
-                <td data-bind="text: booleanValue() ? 'True' : 'False'"></td>
-            </tr>
-            <tr>
-                <td class="label">可选:</td>
-                <td data-bind="text: selectedOptionValue"></td>
-            </tr>
-            <tr>
-                <td class="label">多选:</td>
-                <td data-bind="text: multipleSelectedOptionValues"></td>
-            </tr>
-            <tr>
-                <td class="label">单选:</td>
-                <td data-bind="text: radioSelectedOptionValue"></td>
-            </tr>
+
+                <tr>
+                    <td class="label">文本值(鼠标离开时更新)</td>
+                    <td>
+                        <input data-bind="value: stringValue" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">文本值(输入值更新)</td>
+                    <td>
+                        <input data-bind="value: stringValue, valueUpdate: 'afterkeydown'" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">多行值</td>
+                    <td><textarea data-bind="value: stringValue"></textarea></td>
+                </tr>
+                <tr>
+                    <td class="label">密码</td>
+                    <td><input type="password" data-bind="value: passwordValue" /></td>
+                </tr>
+                <tr>
+                    <td class="label">布尔</td>
+                    <td><input type="checkbox" data-bind="checked: booleanValue" /></td>
+                </tr>
+                <tr>
+                    <td class="label">可选</td>
+                    <td><select data-bind="options: optionValues, value: selectedOptionValue"></select></td>
+                </tr>
+                <tr>
+                    <td class="label">多选</td>
+                    <td><select multiple="multiple"
+                            data-bind="options: optionValues, selectedOptions: multipleSelectedOptionValues"></select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">单选</td>
+                    <td>
+                        <label><input type="radio" value="Python"
+                                data-bind="checked: radioSelectedOptionValue" />Python</label>
+                        <label><input type="radio" value="GO" data-bind="checked: radioSelectedOptionValue" />GO</label>
+                        <label><input type="radio" value="HTML"
+                                data-bind="checked: radioSelectedOptionValue" />HTML</label>
+                    </td>
+                </tr>
+
             </tbody>
         </table>
     </div>
-    <h3>HTML 控制器</h3>
-    <table>
-        <tbody>
-
-        <tr>
-            <td class="label">文本值(鼠标离开时更新)</td>
-            <td>
-                <input data-bind="value: stringValue"/>
-            </td>
-        </tr>
-        <tr>
-            <td class="label">文本值(输入值更新)</td>
-            <td>
-                <input data-bind="value: stringValue, valueUpdate: 'afterkeydown'"/>
-            </td>
-        </tr>
-        <tr>
-            <td class="label">多行值</td>
-            <td><textarea data-bind="value: stringValue"></textarea></td>
-        </tr>
-        <tr>
-            <td class="label">密码</td>
-            <td><input type="password" data-bind="value: passwordValue"/></td>
-        </tr>
-        <tr>
-            <td class="label">布尔</td>
-            <td><input type="checkbox" data-bind="checked: booleanValue"/></td>
-        </tr>
-        <tr>
-            <td class="label">可选</td>
-            <td><select data-bind="options: optionValues, value: selectedOptionValue"></select></td>
-        </tr>
-        <tr>
-            <td class="label">多选</td>
-            <td><select multiple="multiple"
-                        data-bind="options: optionValues, selectedOptions: multipleSelectedOptionValues"></select></td>
-        </tr>
-        <tr>
-            <td class="label">单选</td>
-            <td>
-                <label><input type="radio" value="Python" data-bind="checked: radioSelectedOptionValue"/>Python</label>
-                <label><input type="radio" value="GO" data-bind="checked: radioSelectedOptionValue"/>GO</label>
-                <label><input type="radio" value="HTML" data-bind="checked: radioSelectedOptionValue"/>HTML</label>
-            </td>
-        </tr>
-
-        </tbody>
-    </table>
-</div>
 </body>
 <!-- JavaScript Files Here -->
-<script type="text/javascript" src="static/js/knockout-min.js"></script>
+<script type="text/javascript" src="../static/js/ko/knockout-min.js"></script>
 <script>
     let viewModel = {
         stringValue: ko.observable("Hello"),
@@ -105,4 +110,5 @@
     };
     ko.applyBindings(viewModel)
 </script>
+
 </html>

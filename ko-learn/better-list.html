@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>操作列表</title>
@@ -11,21 +12,22 @@
         }
     </style>
 </head>
+
 <body>
-<form data-bind="submit:addItem">
-    新增一项:
-    <input type="text" data-bind='value:itemToAdd, valueUpdate:"afterkeydown"'/>
-    <button type="submit" data-bind="enable: itemToAdd().length > 0">添加</button>
-</form>
-<p>已添加的选项:</p>
-<select multiple="multiple" data-bind="options:allItems, selectedOptions:selectedItems"> </select>
-<div>
-    <button data-bind="click:removeSelected, enable: selectedItems().length > 0">删除</button>
-    <button data-bind="click:sortItems, enable:allItems().length > 1">排序</button>
-</div>
+    <form data-bind="submit:addItem">
+        新增一项:
+        <input type="text" data-bind='value:itemToAdd, valueUpdate:"afterkeydown"' />
+        <button type="submit" data-bind="enable: itemToAdd().length > 0">添加</button>
+    </form>
+    <p>已添加的选项:</p>
+    <select multiple="multiple" data-bind="options:allItems, selectedOptions:selectedItems"> </select>
+    <div>
+        <button data-bind="click:removeSelected, enable: selectedItems().length > 0">删除</button>
+        <button data-bind="click:sortItems, enable:allItems().length > 1">排序</button>
+    </div>
 </body>
 <!-- JavaScript Files Here -->
-<script type="text/javascript" src="static/js/knockout-min.js"></script>
+<script type="text/javascript" src="../static/js/ko/knockout-min.js"></script>
 <script>
     let BetterListModel = function () {
         const defaultValue = ""; // 默认显示的值
@@ -72,4 +74,5 @@
 
     ko.applyBindings(new BetterListModel())
 </script>
+
 </html>

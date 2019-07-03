@@ -20,3 +20,14 @@ curl -o js/knockout-min.js https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.0
 ```
 
 [csnjs]: https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.0/knockout-min.js
+
+## 循环
+
+除了在HTML中循环外，还可以通过注释的方式进行循环
+
+```html
+<!-- ko if: check_show()  -->
+<!-- /ko -->
+<!-- ko foreach: button_items -->
+<!-- /ko -->
+```

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Django settings for bootstrap project.
 
@@ -57,12 +58,14 @@ WSGI_APPLICATION = 'bootstrap.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
+# 没有使用到数据库，进行注释
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
+
 # 模板页目录配置
 TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, 'templates'),
