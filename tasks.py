@@ -16,3 +16,5 @@ def clean(ctx):
     ctx.run("find . -name '.pytest_cache' -exec rm -rf {} +", echo=True)
     ctx.run("find . -name '.benchmarks' -exec rm -rf {} +", echo=True)
     ctx.run("find . -name '*.egg-info' -exec rm -rf {} +", echo=True)
+    ctx.run("find . -name 'db.sqlite3' -exec rm -rf {} +", echo=True)
+    ctx.run("find . -name 'node_modules' -exec rm -rf {} +", echo=True)

@@ -197,14 +197,14 @@ npm start
     <!-- 加载我们的自定义的 React 组件。-->
 
     <!-- Load our React component. -->
-    <script src="test_like_button.js"></script>
+    <script src="test.js"></script>
 
 </body>
 
 </html>
 ```
 
-* test_like_button.js
+* test.js
 
 ```javascript
 'use strict';
@@ -236,3 +236,23 @@ class LikeButton extends React.Component {
 const domContainer = document.querySelector('#like_button_container');
 ReactDOM.render(likeElement(LikeButton), domContainer);
 ```
+
+## 为生产环境压缩JavaScript代码
+
+* 1.安装nodejs
+* 2.在React项目目录执行以下命令
+
+```bash
+npm init -y
+```
+
+* 3.安装terser
+
+```bash
+npm install terser
+
+cd src
+npx terser -c -m -o like_button.min.js -- like_button.js
+```
+
+* 4.项目中使用min.js

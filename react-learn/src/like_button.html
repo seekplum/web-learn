@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>一分钟上手React</title>
+</head>
+
+<body>
+
+    <h2>一分钟上手React</h2>
+    <p>演示如何使用React.</p>
+    <p>React加载 Button, 并完成点击事件的监听.</p>
+
+    <p>
+        第一条评论
+        <div class="like_button_container" data-commentid="1"></div>
+    </p>
+
+    <p>
+        第二条评论
+        <div class="like_button_container" data-commentid="2"></div>
+    </p>
+
+    <p>
+        第三条评论
+        <div class="like_button_container" data-commentid="3"></div>
+    </p>
+
+    <!-- 加载 React。-->
+    <!-- 注意: 部署时，将 "development.js" 替换为 "production.min.js"。-->
+    <!-- <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script> -->
+    <!-- <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script> -->
+
+    <script src="https://unpkg.com/react@16/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js" crossorigin></script>
+
+    <!-- 加载我们的 React 组件。-->
+
+    <!-- Load our React component. -->
+    <script src="like_button.js"></script>
+
+</body>
+
+</html>
