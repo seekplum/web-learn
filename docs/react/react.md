@@ -336,3 +336,37 @@ python -m SimpleHTTPServer 8080
 * 通过服务进行访问html，如
 
 [http://127.0.0.1:8080/src/hello_word_jsx.html](http://127.0.0.1:8080/src/hello_word_jsx.html)
+
+## 组件 & Props
+
+### 函数组件
+
+```typescript jsx
+function Welcome(props) {
+    return <h1>Hello, {props.name}</h1>;
+}
+```
+
+### 类组件
+
+```typescript jsx
+class Welcome extends React.Component {
+    render() {
+        return <h1>Hello, {this.props.name}</h1>;
+    }
+}
+```
+
+两者效果是等价的，**注意: 组件名称必须以 `大写字母开头`, React会将以 `小写` 字母开头的组件视为是原生的DOM标签.**
+
+## 渲染组件
+
+```typescript jsx
+const element = <Welcome name="World" />;
+```
+
+React元素为用户自定义的组件时,它会将JSX所接收的属性(attributes)转换为单个对象传递给组件，这个对象被称之为 `props`
+
+## props只读性
+
+**所有的React组件都不允许修改 `props`.**
