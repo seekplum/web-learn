@@ -370,3 +370,54 @@ React元素为用户自定义的组件时,它会将JSX所接收的属性(attribu
 ## props只读性
 
 **所有的React组件都不允许修改 `props`.**
+
+## State & 生命周期
+
+### 将函数组件转换为class组件
+
+每次组件更新时 `render` 方法都会被调用，但只要在相同的DOM节点中渲染组件，那么就仅有一个组件的class实例被创建使用。
+
+### 不要直接修改State
+
+```typescript jsx
+this.state.comment = "test";  // 此种方式代码不会重新渲染组件
+this.setState({comment: "test"});  // 会重新渲染组件
+```
+
+**构造函数是唯一可以给state赋值的地方，其它时候都应该使用 `this.setState()` 进行修改.**
+
+### State的更新可能是异步的
+
+出于性能考虑，React 可能会把多个 setState() 调用合并成一个调用。
+
+因为 this.props 和 this.state 可能会异步更新，所以你不要依赖他们的值来更新下一个状态。
+
+例如，此代码可能会无法更新计数器：
+
+```typescript jsx
+// Wrong
+this.setState({
+  counter: this.state.counter + this.props.increment,
+});
+```
+
+要解决这个问题，可以让 setState() 接收一个函数而不是一个对象。这个函数用上一个 state 作为第一个参数，将此次更新被应用时的 props 做为第二个参数：
+
+```typescript jsx
+// Correct
+this.setState((state, props) => ({
+  counter: state.counter + props.increment
+}));
+```
+
+### State的更新会被合并
+
+当你调用 `setState()` 的时候，React会把你提供的对象合并当前的state。
+
+这里的合并是浅合并，和Python中字典的 `update` 方法效果一致。
+
+### 数据是向下流动的
+
+不管是父组件还是子组件都无法知道某个组件时有状态的还是无状态的，并且它们并不关心它是函数组件还是类组件。
+
+每个组件时相互独立，内部的状态不会相互影响。
