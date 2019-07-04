@@ -307,8 +307,32 @@ React元素是不可变对象，一旦被创建，就无法更改它的子元素
 
 ## 导入本地React JS报错
 
-错误信息
+* 错误信息
 
 ```text
 Access to script at 'file:react.production.min.js' from origin 'null' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: http, data, chrome, chrome-extension, https.
 ```
+
+React会有同源策略，需要在根目录通过启动服务的保证html和jsx在同一个服务中。
+
+* 安装node提供的http server
+
+```bash
+npm install http-server -g
+```
+
+* 在React根目录下启动服务
+
+```bash
+http-server . -o
+```
+
+或者使用Python启动
+
+```bash
+python -m SimpleHTTPServer 8080
+```
+
+* 通过服务进行访问html，如
+
+[http://127.0.0.1:8080/src/hello_word_jsx.html](http://127.0.0.1:8080/src/hello_word_jsx.html)

@@ -10,13 +10,16 @@
     <div id="root"></div>
 </body>
 
-<script src="https://unpkg.com/react@16/umd/react.production.min.js" crossorigin></script>
-<script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js" crossorigin></script>
+<!-- 导入React js -->
+<script src="../static/js/react/react.production.min.js" crossorigin></script>
+<script src="../static/js/react/react-dom.production.min.js" crossorigin></script>
 
 <!-- 使用JSX方式必须要导入 babel.js -->
-<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+<script src="../static/js/react/babel.min.js"></script>
+
 <!-- <script crossorigin type="text/jsx"> -->
-<script crossorigin type="text/babel">
+<!-- 直接在HTML中写jsx -->
+<!-- <script crossorigin type="text/babel">
     function tick(){
         const element = (
             <div>
@@ -27,6 +30,8 @@
         ReactDOM.render(element, document.getElementById('root'));
     }
     setInterval(tick, 1000);
-</script>
+</script> -->
+
+<script type="text/babel" src="./hello_world_jsx.jsx"></script>
 
 </html>
