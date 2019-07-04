@@ -421,3 +421,32 @@ this.setState((state, props) => ({
 不管是父组件还是子组件都无法知道某个组件时有状态的还是无状态的，并且它们并不关心它是函数组件还是类组件。
 
 每个组件时相互独立，内部的状态不会相互影响。
+
+## 事件处理
+
+* React事件的命名采用 `小驼峰式(camelcase)`
+* 使用JSX语法时需要传入一个函数作为事件处理函数，而不是一个字符串
+* 无法通过 `return false`的方式阻止默认行为，必须显示的使用 `preventDefault`
+
+```html
+<a href="#" onclick="console.log('按钮被点击.'); return false">点击按钮</a>
+```
+
+```typescript jsx
+function ActionLink() {
+    function handleClick(e) {
+        e.preventDefault();
+        console.log("按钮被点击!");
+    }
+    return (
+        <a href="#" onClick={handleClick}>
+            点击按钮
+    </a>
+    );
+}
+
+ReactDOM.render(
+    <ActionLink />,
+    document.getElementById('root')
+);
+```
