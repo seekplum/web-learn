@@ -168,6 +168,14 @@ npm start
 
 ## 原生JavaScript使用React
 
+* 下载js
+
+```bash
+wget -O static/js/react/react.production.min.js  https://unpkg.com/react@16/umd/react.production.min.js
+wget -O static/js/react/react-dom.production.min.js  https://unpkg.com/react-dom@16/umd/react-dom.production.min.js
+wget -O static/js/react/babel.min.js https://unpkg.com/babel-standalone@6/babel.min.js
+```
+
 * test.html
 
 ```html
@@ -288,3 +296,19 @@ return (
 为什么要设置crossorigin属性，**可以在React 16及以上版本中有更好的错误处理体验.**
 
 同时建议验证使用的 CDN 是否设置了 `Access-Control-Allow-Origin: *` HTTP请求头
+
+## 更新已渲染元素
+
+React元素是不可变对象，一旦被创建，就无法更改它的子元素或者属性。
+
+更新UI的唯一方式就是创建一个全新的元素，并将其传入 `ReactDOM.render()`
+
+**在实践中，大多数React应用只会调用一个 `ReactDOM.render()`,做法是讲代码封装到有状态组件中.**
+
+## 导入本地React JS报错
+
+错误信息
+
+```text
+Access to script at 'file:react.production.min.js' from origin 'null' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: http, data, chrome, chrome-extension, https.
+```

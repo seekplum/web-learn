@@ -17,10 +17,16 @@
 <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
 <!-- <script crossorigin type="text/jsx"> -->
 <script crossorigin type="text/babel">
-    ReactDOM.render(
-        <h1>Hello World!</h1>,
-        document.getElementById('root')
-    )
+    function tick(){
+        const element = (
+            <div>
+                <h1>Hello World!</h1>
+                <h2>当前时间: {new Date().toLocaleTimeString()}.</h2>
+            </div>
+        );
+        ReactDOM.render(element, document.getElementById('root'));
+    }
+    setInterval(tick, 1000);
 </script>
 
 </html>
