@@ -450,3 +450,7 @@ ReactDOM.render(
     document.getElementById('root')
 );
 ```
+
+## 阻止组件渲染
+
+对已经渲染的组件进行隐藏，可以通过 `render` 方法返回 `null` 的方式进行处理。
