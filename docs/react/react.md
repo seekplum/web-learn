@@ -479,6 +479,40 @@ ReactDOM.render(
 
 即不需要全局唯一
 
+## 表单
+
+在React中，HTML表单元素的工作方式和其他DOM元素有些不同，这是因为表单元素通常会保持一些内部的 `state`.
+
+### 受控组件
+
+在HTML中，表单元素(如 `<input>`, `<textarea>`, `<select>`)通常是自身维护state,并根据用户输入进行更新。
+
+在React中，可变状态(mutable state)通常是保持在组件的state属性中，并只能通过 `setState()` 来更新。
+
+### select标签
+
+React并不会使用 `selected` 属性，而是跟 `select` 标签上使用 `value` 属性。
+
+### 受控输入空值
+
+在受控组件上指定value的prop可以防止用户更改输入。
+
+如果指定了 `value` 后想进行编辑，则可以将 `value` 设置为 `undefined` 或 `null`
+
+```typescript jsx
+ReactDOM.render(
+    <input value="hi" />,
+    document.getElementById('root')
+);
+
+setTimeout(() => {
+    ReactDOM.render(
+        <input value={null} />,
+        document.getElementById('root')
+    );
+}, 1000);
+```
+
 ## 参考
 
 * [React 中文文档](https://react.docschina.org/docs/getting-started.html)
