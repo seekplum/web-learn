@@ -517,6 +517,26 @@ setTimeout(() => {
 
 在React中，将多个组件中需要共享的state向上移动到它们最近共同父组件中，便可实现共享state。
 
+## 组合 VS 继承
+
+React有非常强大的组合模式，推荐使用组合而非继承来实现组件间的代码重用。
+
+```javascript
+<div>
+                <SplitPane
+                    left={
+                        <Contacts />
+                    }
+                    right={
+                        <Chat />
+                    } />
+            </div>
+            <div>
+                <WelcomeDilog />
+                <SignUpDialog />
+            </div>
+```
+
 ## 参考
 
 * [React 中文文档](https://react.docschina.org/docs/getting-started.html)
