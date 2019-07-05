@@ -513,6 +513,10 @@ setTimeout(() => {
 }, 1000);
 ```
 
+## 状态提升
+
+在React中，将多个组件中需要共享的state向上移动到它们最近共同父组件中，便可实现共享state。
+
 ## 参考
 
 * [React 中文文档](https://react.docschina.org/docs/getting-started.html)
