@@ -537,6 +537,10 @@ React有非常强大的组合模式，推荐使用组合而非继承来实现组
             </div>
 ```
 
+## 语义化的HTML
+
+当你不需要再fragment标签中添加任何 props 工具支持的时候，可以使用 `短语法`.
+
 ## 参考
 
 * [React 中文文档](https://react.docschina.org/docs/getting-started.html)
