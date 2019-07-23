@@ -49,6 +49,24 @@
             </todo-item>
         </ol>
     </div>
+
+    <div id="app8">
+        <p>文字内容为: {{ rawHtml }}</p>
+        <p>文字内容为: <span v-html="rawHtml"></span></p>
+    </div>
+
+    <div id="app9">
+        <div v-bind:id="dynamicId">
+            <button v-bind:disabled="isButtonDisabled">Button</button>
+        </div>
+    </div>
+
+    <div id="app10">
+        <p>Number: {{ number + 1 }}</p>
+        <p>OK: {{ ok ? 'YES' : 'NO' }}</p>
+        <p>Message: {{ message.split('').reverse().join('') }}</p>
+        <div v-bind:id="'list-' + id">id是list-12345</div>
+    </div>
 </body>
 
 <script src="demo.js"></script>

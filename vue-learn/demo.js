@@ -68,3 +68,28 @@ var app7 = new Vue({
         ]
     }
 })
+
+var app8 = new Vue({
+    el: "#app8",
+    data: {
+        rawHtml: '<span style="color: red">显示红色文字</span>'
+    }
+})
+
+var app9 = new Vue({
+    el: "#app9",
+    data: {
+        isButtonDisabled: true,
+        dynamicId: "div9"
+    }
+})
+
+var app10 = new Vue({
+    el: "#app10",
+    data: {
+        number: 9,
+        ok: true,
+        message: "a b c d",
+        id: 12345
+    }
+})
