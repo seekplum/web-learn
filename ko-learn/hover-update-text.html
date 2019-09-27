@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>hover修改文案</title>
+
+    <!-- CSS Here -->
+    <style>
+        .mz-btn {
+            text-align: center;
+        }
+
+        .mz-new-renew-item-btn {
+            width: 122px;
+            height: 22px;
+            border-radius: 4px;
+            border: 1px solid #FF5400;
+            color: #FF5400;
+        }
+
+        .mz-new-renew-item-btn:hover {
+            color: #FFFFFF;
+            background: #FF5400;
+            line-height: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="mz-renew-item">
+        <a role="button" class="mz-btn mz-new-renew-item-btn" 
+            data-bind="text: content, 
+            attr: { 'data-content': get_content() }, popover, 
+            event: { 
+                mouseover: update_btn_text,
+                mouseout: revert_btn_text
+            }" data-placement="top" data-trigger="hover">
+            
+        </a>
+        <a role="button" class="mz-btn mz-new-renew-item-btn" 
+            data-bind="text: content, 
+            attr: { 'data-content': get_content() }, popover, 
+            event: { 
+                mouseover: update_btn_text,
+                mouseout: revert_btn_text
+            }"  data-placement="top" data-trigger="hover">
+            
+        </a>
+    </div>
+    <!-- JavaScript Files Here -->
+    <script type="text/javascript" src="../static/js/ko/knockout-min.js"></script>
+    <script>
+        let SimpleListModel = function () {
+            this.content = ko.observable("立即续订");
+            this.get_content = function () {
+                console.log("get_content");
+                return "预订测试";
+            }.bind(this)
+
+            this.update_btn_text = function () {
+                console.log("update_btn_text");
+                this.content("立即续订,省1234元");
+            }.bind(this)
+
+            this.revert_btn_text = function () {
+                console.log("revert_btn_text22");
+                this.content("立即预定");
+            }.bind(this)
+        };
+        ko.applyBindings(new SimpleListModel())
+    </script>
+</body>
+
+</html>
