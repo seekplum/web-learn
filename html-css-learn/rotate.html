@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>图片旋转</title>
+    <style>
+        .rotate {
+            /* width: 200px; */
+            /* height: 200px; */
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="file" id="file" onchange="showPreview(this.id, 'rotate')" />
+    <br>
+    <label>旋转角度: </label><input id="angle" type="number" value="0">
+    <img src="" id="rotate" />
+
+</body>
+<script type="text/javascript">
+    /**
+    图片旋转
+    */
+    document.getElementById('angle').onchange = function () {
+        var angle = document.getElementById("angle").value;
+        var rotate = document.getElementById('rotate');
+
+        angle = angle % 360;
+        rotate.style.transform = 'rotate(' + angle + 'deg)';
+    };
+    /**
+    图片预览 
+    */
+    function showPreview(fileId, imgId) {
+        var file = document.getElementById(fileId);
+        var ua = navigator.userAgent.toLowerCase();
+        var url = '';
+        if (/msie/.test(ua)) {
+            url = file.value;
+        } else {
+            url = window.URL.createObjectURL(file.files[0]);
+        }
+        console.log("url: ", url);
+        document.getElementById(imgId).src = url;
+        if (url) {
+            document.getElementById(imgId).style.display = "block";
+        } else {
+            document.getElementById(imgId).style.display = "none";
+        }
+    }
+</script>
+
+</html>
