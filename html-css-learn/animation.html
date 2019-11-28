@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>动画图片轮播</title>
+    <style>
+        .content {
+            width: 200px;
+            height: 200px;
+            overflow: hidden;
+            float: left;
+            /* position: absolute; */
+        }
+
+        .content-detail {
+            /* position: absolute; */
+            width: 1000%; /**必须是1000*/
+            height: 100%;
+        }
+
+        .needAnimation {
+            transition: transform 2s linear 0s;
+        }
+
+        .teach-group {
+            width: 200px;
+            float: left;
+            /* position: relative; */
+        }
+
+        .teach-group-img {
+            /* max-width: 200px; */
+            width: 200px;
+            /* height: auto; */
+            /* max-height: 200px; */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="content">
+        <div class="content-detail"
+            data-bind="attr: {'style': 'transform: ' + 'translate(' + animationWidth()+'px, 0);'}, css: {'needAnimation': isNeedAnimation}">
+            <div class="teach-group">
+                <img class="teach-group-img"
+                    src="https://img.alicdn.com/bao/uploaded/i1/696944147/O1CN01D0WU3P1gVN3bJVohn_!!0-item_pic.jpg"
+                    alt="1" />
+            </div>
+            <div class="teach-group">
+                <img class="teach-group-img"
+                    src="https://img.alicdn.com/bao/uploaded/i3/696944147/O1CN01cGdLiV1gVN3fg3Zrw_!!0-item_pic.jpg"
+                    alt="2">
+            </div>
+            <div class="teach-group">
+                <img class="teach-group-img"
+                    src="https://img.alicdn.com/bao/uploaded/i3/696944147/O1CN019v5leT1gVMy08Iloa_!!0-item_pic.jpg"
+                    alt="3">
+            </div>
+        </div>
+    </div>
+</body>
+<!-- JavaScript Files Here -->
+<script type="text/javascript" src="../static/js/ko/knockout-min.js"></script>
+<script>
+    let animationModel = function () {
+        this.animationWidth = ko.observable(0);
+        this.isNeedAnimation = ko.observable(true);
+
+        this.updateAnimation = function () {
+            console.log("this.animationWidth: ", this.animationWidth());
+            if (this.animationWidth() <= -200 * 2) {
+                this.animationWidth(0);
+                this.isNeedAnimation(false);
+            } else {
+                this.animationWidth(this.animationWidth() - 200);
+                this.isNeedAnimation(true);
+            }
+        };
+
+        setInterval(this.updateAnimation.bind(this), 2000);
+    };
+    ko.applyBindings(new animationModel())
+</script>
+
+</html>
