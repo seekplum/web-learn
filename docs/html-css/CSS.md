@@ -319,3 +319,9 @@ CSS 分类属性允许你控制如何显示元素，设置图像显示于另一�
 |table-cell|此元素会作为一个表格单元格显示（类似 \<td> 和 \<th>）|
 |table-caption|此元素会作为一个表格标题显示（类似 \<caption>）|
 |inherit|规定应该从父元素继承 display 属性的值。|
+
+## cursor
+
+定义鼠标指针悬浮在元素上方显示的鼠标光标
+
+MDN[cursor](https://developer.mozilla.org/zh-CN/docs/Web/CSS/cursor)
