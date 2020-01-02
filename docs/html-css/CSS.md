@@ -325,3 +325,7 @@ CSS 分类属性允许你控制如何显示元素，设置图像显示于另一�
 定义鼠标指针悬浮在元素上方显示的鼠标光标
 
 MDN[cursor](https://developer.mozilla.org/zh-CN/docs/Web/CSS/cursor)
+
+## outline
+
+`border` 外边框，`outline` 内描边,可以参考[【基础】CSS实现多重边框的5种方式](https://juejin.im/post/5aec7e2351882567147d40ff)
