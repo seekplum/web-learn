@@ -1,6 +1,13 @@
 {
   "dependencies": {
+    "babel-eslint": "^10.0.3",
+    "eslint": "6",
     "moment": "^2.19.1",
     "mongodb": "^2.2.33"
+  },
+  "devDependencies": {
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-html-reporter": "^0.7.4",
+    "eslint-plugin-react": "^7.14.3"
   }
 }
