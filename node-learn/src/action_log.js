@@ -1,6 +1,9 @@
 const { MongoClient } = require('mongodb');
+const { ObjectId } = require('mongodb');
+
 const LOG_DB_URL = 'mongodb://localhost:27017/test';
 
+/*eslint max-lines-per-function: ["error", 70]*/
 async function work() {
   const LOG_DB = await MongoClient.connect(LOG_DB_URL, {
     poolSize: 1
@@ -10,7 +13,6 @@ async function work() {
   // @Owner: huangjiandong
 
   // import { TEST_DB, LOG_DB } from 'astrDataSources';
-  const { ObjectId } = require('mongodb');
 
   const logDB = LOG_DB;
   const testDB = TEST_DB;

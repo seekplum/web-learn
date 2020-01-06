@@ -30,6 +30,9 @@ const timeFormat = "YYYY-MM-DD HH:mm:ss";
 const nowDate = moment(nowStr, timeFormat);
 // const nowUnixDate = moment.unix(moment(nowStr) / 1000);
 for (const timeStr in timesStr) {
+    if (!Object.prototype.hasOwnProperty.call(timesStr, timeStr)) {
+        continue
+    }
     const currentDate = moment(timeStr, timeFormat);
     const humanStr = currentDate.locale('zh-cn').from(nowDate);
     // const currentUnixDate = moment.unix(moment(timeStr) / 1000);
