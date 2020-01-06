@@ -1,4 +1,5 @@
 const { MongoClient } = require('mongodb');
+
 const LOG_DB_URL = 'mongodb://localhost:27017/test';
 
 async function work() {
@@ -10,7 +11,7 @@ async function work() {
     // @Owner: huangjiandong
 
     // import { TEST_DB, LOG_DB } from 'astrDataSources';
-    const { ObjectId } = require('mongodb');
+    // const { ObjectId } = require('mongodb');
 
     const logDB = LOG_DB;
     const testDB = TEST_DB;
@@ -18,13 +19,13 @@ async function work() {
 
     const actCol = await testDB.collection('discount_act');
     const acts = await actCol.find({ uid: uid }).toArray();
-    // console.log("acts: ", acts);
+    console.log("acts: ", acts);
 
     const userActionCol = await logDB.collection('user_action_log');
     const actionLogs = await userActionCol.find({
         uid: uid,
     }).toArray();
-    // console.log("actionLogs: ", actionLogs);
+    console.log("actionLogs: ", actionLogs);
     let actionLogsObject = {};
     actionLogs.forEach((item, idx) => {
         const aid = item.aid;

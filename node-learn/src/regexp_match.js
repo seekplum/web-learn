@@ -7,9 +7,10 @@ var input = `    <div class="any-creator-content">
 <div id="fixedRoot" style="width: 600px;overflow: hidden;left: 0px;top: 0px"></div>
 </div><!--fixed-content-->
 %`;
-var regex = /data-ga-event=\"(\S+)\"\s+data-ga-category=\"(\S+)\"\s+.*?href=\"(\S+)\"/g;
+var regex = /data-ga-event="(\S+)"\s+data-ga-category="(\S+)"\s+.*?href="(\S+)"/g;
 
-var matches = [];
-while (matches = regex.exec(input)) {
+var matches = regex.exec(input);
+while (matches) {
     console.log(matches[1], matches[2], matches[3]);
+    matches = regex.exec(input);
 }
