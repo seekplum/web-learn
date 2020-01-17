@@ -2,10 +2,11 @@
 
 // 统计某天的活跃用户数量
 
-// import { MEIZHE_DB, SHUIYIN_DB, MSHOW_OUT } from 'astrDataSources';
+// import { MEIZHE_DB, SHUIYIN_DB, MSHOW_DB, MSHOW_OUT } from 'astrDataSources';
 
 // const meizheDB = MEIZHE_DB;
 // const shuiyinDB = SHUIYIN_DB;
+// const mshowDB = MSHOW_DB;
 // const mshowStatDB = MSHOW_OUT;
 
 const moment = require('moment');
@@ -16,17 +17,31 @@ const targetDate = targetDay.toDate();
 const targetEndDay = targetDay.add(1, 'days');
 const targetEndDate = targetEndDay.toDate();
 
-console.log("targetDay:", targetDate, targetDay.format('YYYY-MM-DD HH:mm:ss'), "targetEndDay: ", targetEndDate, targetEndDay.format('YYYY-MM-DD HH:mm:ss'));
+// 活动页 byPage 表的时间不是本地时间，是UTC时间，不要加 8 小时
+const pageDay = moment(targetStr);
+const pageDate = pageDay.toDate();
+const pageEndDay = pageDay.add(1, 'days');
+const pageEndDate = pageEndDay.toDate();
+
+console.log("targetDay:", targetDate, "targetEndDay: ", targetEndDate);
 
 async function _getSubActivity(db, act_type) {
     // db.discount_act.aggregate([{"$match": {act_type: "zhekou"}},{$project: {uid: 1}}, {$group: {_id: "$uid"}}, {$group: {_id: null, count: {$sum: 1}}}])
-    // ended 有索引
+    // stopped 有索引
     const data = await db.collection('discount_act').aggregate([
         {
             $match: {
-                ended: { "$gte": targetDate },
+                created: { "$lt": targetEndDate },
+                "$or": [
+                    {
+                        stopped: { "$gte": targetDate }
+                    },
+                    {
+                        stopped: null,
+                        status: { "$in": [1, 0, 2, 3] }, // appling, created, running, stoppping
+                    }
+                ],
                 act_type: act_type,
-                status: { "$in": [1, 0, 2, 3] }, // appling, created, running, stoppping
             }
         },
         { $project: { uid: 1 } },
@@ -41,11 +56,22 @@ async function _getSubActivity(db, act_type) {
  * 获取打折满减活动用户数量
  */
 async function getDiscount(db) {
-    const activityTypes = ["zhekou", "fzhekou", "dzhekou", "skuzhekou", "mjs", "fmjs", "dmjs", "circlezhekou", "secondzhekou", "circlezhekouv2"];
-    for (let idx = 0; idx < activityTypes.length; idx++) {
-        const act_type = activityTypes[idx];
+    const activityTypesMap = {
+        "zhekou": "普通折扣",
+        "fzhekou": "全店打折",
+        // "dzhekou": "全店折扣排除部分",
+        "skuzhekou": "SKU打折",
+        "mjs": "满减",
+        "fmjs": "全店满减",
+        // "dmjs": "全店满减排除部分",
+        "circlezhekou": "循环打折1.0",
+        "secondzhekou": "第二件促销",
+        "circlezhekouv2": "循环打折2.0",
+    };
+    for (let act_type in activityTypesMap) {
+        const type_name = activityTypesMap[act_type];
         const user_count = await _getSubActivity(db, act_type);
-        console.log("打折/满减 活动类型:", act_type, "user number: ", user_count);
+        console.log("打折/满减 活动类型:", type_name, "用户数量: ", user_count);
     }
 }
 
@@ -55,21 +81,21 @@ async function _getSubWatemark(db, type) {
     if (type === "normal") {
         matchType = { "$in": [type, null] }
     }
-    // type, created, ended 有索引
+    // type, created 有索引
     const data = await db.collection('shuiyin_group').aggregate([
         {
             "$match": {
-                created: { "$lte": targetDate },
+                created: { "$lt": targetEndDate },
                 type: matchType,
                 "$or": [
                     {
-                        ended: null // 不定时结束的水印都是在生效中
+                        removed: null, // 不定时结束的水印都是在生效中
+                        status: { "$in": [1, 2, 3, 5] }, // 1: 设置中 2: 进行中 3: 结束中 5: 修改中
                     },
                     {
-                        ended: { "$gt": targetEndDate } // 定时结束水印
+                        removed: { "$gte": targetDate } // 定时结束水印
                     }
                 ],
-                status: { "$in": [1, 2, 5] }, // 1: 设置中 2: 进行中 5: 修改中
             }
         },
         { $project: { uid: 1 } },
@@ -83,11 +109,16 @@ async function _getSubWatemark(db, type) {
  * 获取水印用户数量
  */
 async function getWatermark(db) {
-    const markTypes = ["normal", "vertical", "rectangle", "wireless"];
-    for (let idx = 0; idx < markTypes.length; idx++) {
-        const type = markTypes[idx];
+    const markTypesMap = {
+        "normal": "主图水印",
+        "vertical": "长图水印",
+        "rectangle": "3:4主图水印",
+        // "wireless": "无线主图",
+    };
+    for (let type in markTypesMap) {
+        const type_name = markTypesMap[type];
         const user_count = await _getSubWatemark(db, type);
-        console.log("水印 类型:", type, "user number: ", user_count);
+        console.log("水印 类型:", type_name, "用户数量: ", user_count);
     }
 
 }
@@ -108,19 +139,18 @@ async function getCoupon(db) {
     ]).toArray();
     const count = data.length > 0 ? data[0].count : 0;
     // return count;
-    console.log("权益营销 优惠券 user number:", count);
+    console.log("权益营销 优惠券 用户数量:", count);
 }
 /**
  * 获取活动页用户数量
  */
-async function getActivePage(db) {
+async function getActivePage(db, statDB) {
     // db.byPage.aggregate([{"$match": {date: {"$gte": ISODate("2020-01-08T15:04:23.896Z"), "$lt": ISODate("2020-01-13T15:04:23.896Z")}}},{$project: {uid: 1}}, {$group: {_id: "$uid"}}, {$group: {_id: null, count: {$sum: 1}}}])
-
     // date 有索引
-    const pageData = await db.collection('byPage').aggregate([
+    const pageData = await statDB.collection('byPage').aggregate([
         {
             "$match": {
-                date: { "$gte": targetDate, "$lt": targetEndDate },
+                date: { "$gte": pageDate, "$lt": pageEndDate },
                 pageView: { "$gte": 1 }
             }
         },
@@ -142,7 +172,7 @@ async function getActivePage(db) {
     ]).toArray();
     const count = data.length > 0 ? data[0].count : 0;
     // return count;
-    console.log("活动页 user number:", count);
+    console.log("活动页 用户数量:", count);
 }
 
 
@@ -155,12 +185,13 @@ async function work() {
     const logDB = LOG_DB;
     const meizheDB = logDB;
     const shuiyinDB = logDB;
+    const mshowDB = logDB;
     const mshowStatDB = logDB;
 
     await getDiscount(meizheDB);
     await getWatermark(shuiyinDB);
     await getCoupon(meizheDB);
-    await getActivePage(mshowStatDB);
+    await getActivePage(mshowDB, mshowStatDB);
 
     logDB.close();
 }
