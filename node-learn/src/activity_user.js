@@ -28,6 +28,10 @@ console.log("targetDay:", targetDate, "targetEndDay: ", targetEndDate);
 async function _getSubActivity(db, act_type) {
     // db.discount_act.aggregate([{"$match": {act_type: "zhekou"}},{$project: {uid: 1}}, {$group: {_id: "$uid"}}, {$group: {_id: null, count: {$sum: 1}}}])
     // stopped 有索引
+    let matchType = act_type;
+    if (act_type === "all_circlezhekou" ) {
+        matchType = { "$in": ["circlezhekou", "circlezhekouv2"] }
+    }
     const data = await db.collection('discount_act').aggregate([
         {
             $match: {
@@ -38,10 +42,10 @@ async function _getSubActivity(db, act_type) {
                     },
                     {
                         stopped: null,
-                        status: { "$in": [1, 0, 2, 3] }, // appling, created, running, stoppping
+                        // status: { "$in": [1, 0, 2, 3] }, // appling, created, running, stoppping
                     }
                 ],
-                act_type: act_type,
+                act_type: matchType,
             }
         },
         { $project: { uid: 1 } },
@@ -67,6 +71,7 @@ async function getDiscount(db) {
         "circlezhekou": "循环打折1.0",
         "secondzhekou": "第二件促销",
         "circlezhekouv2": "循环打折2.0",
+        "all_circlezhekou": "循环打折",
     };
     for (let act_type in activityTypesMap) {
         const type_name = activityTypesMap[act_type];
