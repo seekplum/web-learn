@@ -7,7 +7,7 @@ verify_ssl = true
 invoke = {index = "https://pypi.tuna.tsinghua.edu.cn/simple",version = "*"}
 
 [packages]
-django = {index = "https://pypi.tuna.tsinghua.edu.cn/simple",version = "==1.7"}
+django = {index = "https://pypi.tuna.tsinghua.edu.cn/simple",version = "==1.11.28"}
 
 [requires]
 python_version = "2.7"
