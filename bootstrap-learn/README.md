@@ -3,13 +3,12 @@
 ## 安装依赖
 
 ```bash
-pipenv install --deploy --dev
+pip install -r requirements.txt
 ```
 
 ## 启动项目
 
 ```bash
-pipenv shell  # 进入虚拟环境
 python manage.py runserver  # 启动django项目
 ```
 
