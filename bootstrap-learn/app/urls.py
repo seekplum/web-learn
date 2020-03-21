@@ -1,8 +1,10 @@
-from django.conf.urls import patterns, url
+from django.urls import path
 
-urlpatterns = patterns(
-    'app.views',
-    url(r'^login/$', 'login', name='login'),
-    url(r'^register/$', 'register', name='register'),
-    url(r'^index/$', 'index', name='index')
-)
+from . import views
+
+urlpatterns = [
+    path('', views.index),
+    path('index/', views.index, name='index'),
+    path('prompt/', views.prompt, name='prompt'),
+    path('gallery/', views.gallery, name='gallery'),
+]

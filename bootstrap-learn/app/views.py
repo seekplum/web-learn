@@ -2,12 +2,12 @@
 from django.shortcuts import render
 
 
-def login(request):
-    return render(request, 'login.html')
+def prompt(request):
+    return render(request, 'prompt.html')
 
 
-def register(request):
-    return render(request, 'register.html')
+def gallery(request):
+    return render(request, 'gallery.html')
 
 
 def index(request):

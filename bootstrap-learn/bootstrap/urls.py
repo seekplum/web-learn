@@ -1,11 +1,11 @@
-from django.conf.urls import patterns, include, url
+from django.urls import path, include
 from django.contrib import admin
 
 from app.urls import urlpatterns
-from app.views import login
+from app import views
 
-urlpatterns = patterns('',
-                       url(r'^admin/', include(admin.site.urls)),
-                       url(r'^app/', include(urlpatterns)),
-                       url(r'^$', login)
-                       )
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('app/', include(urlpatterns)),
+    path('', views.index)
+]
