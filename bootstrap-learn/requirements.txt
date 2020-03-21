@@ -4,11 +4,7 @@
 #
 #    pip-compile --index-url=https://pypi.tuna.tsinghua.edu.cn/simple --output-file=requirements.txt requirements.in
 #
---index-url https://pypi.tuna.tsinghua.edu.cn/simple
---trusted-host pypi.tuna.tsinghua
---trusted-host pypi.org
-
 asgiref==3.2.5            # via django
-django==3.0               # via -r requirements.in
+django==3.0.3             # via -r requirements.in
 pytz==2019.3              # via django
 sqlparse==0.3.1           # via django
