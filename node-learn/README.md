@@ -12,3 +12,11 @@ yarn add moment@^2.19.1
 ```bash
 yarn install
 ```
+
+## 检查单个目录
+
+```bash
+npx eslint "js/react-pages/mcenterNew/**" --config "./.eslintrc.json"
+```
+
+**目录格式必须是双引号包裹.**
