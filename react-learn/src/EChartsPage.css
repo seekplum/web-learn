@@ -1,0 +1,8 @@
+/** @format */
+
+.effectEcharts {
+  margin-top: 12px;
+}
+.effectEcharts canvas:hover {
+  cursor: pointer;
+}
