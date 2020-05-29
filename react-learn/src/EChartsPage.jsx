@@ -324,12 +324,156 @@ function RegionChartPage() {
     ></div>
   );
 }
+const AGE_RANGES = [
+  "未知",
+  "18岁以下",
+  "18-24岁",
+  "25-29岁",
+  "30-34岁",
+  "35-39岁",
+  "40-49岁",
+  "50-59岁",
+  "60岁以上",
+];
+
+const AGE_MAP = {
+  "-99": 0,
+  1: 1,
+  2: 2,
+  3: 3,
+  4: 4,
+  5: 5,
+  6: 6,
+  7: 6,
+  8: 7,
+  9: 7,
+  10: 8,
+};
+
+function age2Range(age) {
+  return AGE_MAP[age] || 0;
+}
+function getAgeChartOption(title) {
+  let data = [];
+  const maxValue = 100;
+  data.push(["-99", randomData(maxValue)]);
+  for (let i = 0; i <= 10; i++) {
+    data.push([String(i), randomData(maxValue)]);
+  }
+  const series = AGE_RANGES.map((v) => ({
+    name: v,
+    value: 0,
+  }));
+  for (const item of data) {
+    series[age2Range(item[0] || 0)].value += +item[1];
+  }
+  const total = series.reduce((a, b) => a + b.value, 0) || 1;
+  for (const item of series) {
+    item.value = ((item.value / total) * 100).toFixed(2);
+  }
+  return {
+    // 右侧提示信息
+    legend: [
+      {
+        top: 40,
+        right: 220,
+        itemGap: 20,
+        itemWidth: 16,
+        itemHeight: 16,
+        orient: "vertical",
+        data: AGE_RANGES.slice(1, 6).map((v) => ({ name: v, icon: "rect" })),
+        borderRadius: 0,
+      },
+      {
+        top: 40,
+        right: 120,
+        itemGap: 20,
+        itemWidth: 16,
+        itemHeight: 16,
+        orient: "vertical",
+        data: [...AGE_RANGES.slice(6), AGE_RANGES[0]].map((v) => ({
+          name: v,
+          icon: "rect",
+        })),
+        borderRadius: 0,
+      },
+    ],
+    color: [
+      "#F6FAFF",
+      "#519AFF",
+      "#74AEFF",
+      "#97C2FF",
+      "#ABCCFF",
+      "#B9D7FF",
+      "#CAE0FF",
+      "#DCEBFF",
+      "#EDF4FF",
+      "#F6FAFF",
+    ],
+    series: [
+      {
+        name: "年龄分布",
+        type: "pie",
+        radius: ["33%", "60%"],
+        center: ["33%", "41%"],
+        avoidLabelOverlap: false,
+        label: {
+          normal: {
+            show: false,
+            position: "center",
+          },
+          // hover中间提示信息
+          emphasis: {
+            show: true,
+            formatter: (params) => `${params.name}\n${params.value}%`,
+            textStyle: {
+              fontSize: "12",
+              color: "#333",
+            },
+          },
+        },
+        labelLine: {
+          normal: {
+            show: false,
+          },
+        },
+        data: series,
+      },
+    ],
+  };
+}
+function AgeChartPage() {
+  const echartsRef = React.useRef();
+  const [echart, setEchart] = React.useState(null);
+
+  React.useEffect(() => {
+    if (echartsRef) {
+      // 基于准备好的dom，初始化echarts实例
+      const echart = echarts.init(echartsRef.current);
+      setEchart(echart);
+    }
+  }, [echartsRef]);
+  React.useEffect(() => {
+    if (echart) {
+      // 绘制图表
+      const option = getAgeChartOption();
+      echart.setOption(option);
+    }
+  }, [echart]);
+  return (
+    <div
+      ref={echartsRef}
+      className={`${styles.echartsContainer} ${styles.ageChart}`}
+    ></div>
+  );
+}
 
 export default function EChartsPage() {
   return (
     <>
       <DemoChartPage />
       <RegionChartPage />
+      <AgeChartPage />
     </>
   );
 }
