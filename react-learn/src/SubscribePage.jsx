@@ -1,7 +1,6 @@
 /** @format */
 
 import React from "react";
-import Axios from "axios";
 import { Fetch } from "react-subscribe";
 
 function SomeComponent({ data, loading, error, reload, statusCode }) {
