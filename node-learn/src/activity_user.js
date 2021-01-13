@@ -2,9 +2,9 @@
 
 // 统计某天的活跃用户数量
 
-// import { MEIZHE_DB, SHUIYIN_DB, MSHOW_DB, MSHOW_OUT } from 'astrDataSources';
+// import { XXX_DB, SHUIYIN_DB, MSHOW_DB, MSHOW_OUT } from 'astrDataSources';
 
-// const meizheDB = MEIZHE_DB;
+// const xxxDB = XXX_DB;
 // const shuiyinDB = SHUIYIN_DB;
 // const mshowDB = MSHOW_DB;
 // const mshowStatDB = MSHOW_OUT;
@@ -183,19 +183,19 @@ async function getActivePage(db, statDB) {
 
 async function work() {
     const { MongoClient } = require('mongodb');
-    const LOG_DB_URL = 'mongodb://localhost:27017/meizhedb';
+    const LOG_DB_URL = 'mongodb://localhost:27017/xxxdb';
     const LOG_DB = await MongoClient.connect(LOG_DB_URL, {
         poolSize: 1
     });
     const logDB = LOG_DB;
-    const meizheDB = logDB;
+    const xxxDB = logDB;
     const shuiyinDB = logDB;
     const mshowDB = logDB;
     const mshowStatDB = logDB;
 
-    await getDiscount(meizheDB);
+    await getDiscount(xxxDB);
     await getWatermark(shuiyinDB);
-    await getCoupon(meizheDB);
+    await getCoupon(xxxDB);
     await getActivePage(mshowDB, mshowStatDB);
 
     logDB.close();
