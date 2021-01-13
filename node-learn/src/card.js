@@ -2,9 +2,9 @@
 
 // 查询优惠券权益卡详情
 
-// import { MEIZHE_COUPON_DB } from 'astrDataSources';
+// import { XXX_COUPON_DB } from 'astrDataSources';
 
-// const crmDB = MEIZHE_COUPON_DB;
+// const crmDB = XXX_COUPON_DB;
 
 
 const { ObjectId } = require('mongodb');
@@ -32,21 +32,21 @@ async function getCardTask(db) {
  * 获取优惠卡未发送记录
  */
 async function getCardTaskUnSent(db) {
-    const sent_logs = await db.collection('coupon_card_sent_log').find({ 
-        uid: uid, 
-        coupon_card_act_id: card_id, 
-        coupon_card_task_id: card_task_id, 
-        active: 1, 
+    const sent_logs = await db.collection('coupon_card_sent_log').find({
+        uid: uid,
+        coupon_card_act_id: card_id,
+        coupon_card_task_id: card_task_id,
+        active: 1,
         coupon_number: null
     }).toArray();
     let tmp_ids = [];
     for (let sent of sent_logs) {
         let buyer_nick = sent.buyer_nick;
         for (let cid of coupon_ids) {
-            const log = await db.collection('coupon_card_sent_log').findOne({ 
-                uid: uid, 
-                coupon_card_act_id: card_id, 
-                coupon_card_task_id: card_task_id, 
+            const log = await db.collection('coupon_card_sent_log').findOne({
+                uid: uid,
+                coupon_card_act_id: card_id,
+                coupon_card_task_id: card_task_id,
                 buyer_nick: buyer_nick,
                 cid: cid
             })
@@ -63,11 +63,11 @@ async function getCardTaskUnSent(db) {
  * 获取优惠卡发送记录
  */
 async function getCardTaskSent(db) {
-    const sent_logs = await db.collection('coupon_card_sent_log').find({ 
-        uid: uid, 
-        coupon_card_act_id: card_id, 
-        coupon_card_task_id: card_task_id, 
-        active: 1, 
+    const sent_logs = await db.collection('coupon_card_sent_log').find({
+        uid: uid,
+        coupon_card_act_id: card_id,
+        coupon_card_task_id: card_task_id,
+        active: 1,
     }).toArray();
     for (let sent of sent_logs) {
         console.log("buyer_nick:", sent.buyer_nick, "cid:", sent.cid, "coupon_number:", sent.coupon_number);
