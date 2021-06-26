@@ -2,6 +2,7 @@
   "dependencies": {
     "axios": "^0.19.2",
     "babel-eslint": "^10.0.3",
+    "crypto-js": "^4.0.0",
     "eslint": "6",
     "moment": "^2.19.1",
     "mongodb": "^3.6.9"
