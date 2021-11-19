@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Canvas翻转图片</title>
+  </head>
+  <body>
+    <canvas id="bargraphCanvas" width="300" height="300"></canvas>
+    <button onclick="turn()">翻转</button>
+    <button onclick="download()">下载</button>
+  </body>
+  <!-- JavaScript Files Here -->
+  <script>
+    var canvas, context;
+    var image; //图片对象
+    var flag = 1;
+
+    function loadImg() {
+      image = new Image();
+      image.onload = function () {
+        drawImage();
+      };
+      // image.crossOrigin = "anonymous";
+      image.src = "./images/hat.png";
+    }
+    function drawImage() {
+      context.clearRect(0, 0, canvas.width, canvas.height);
+      context.drawImage(image, 0, 0, 300, 300);
+    }
+
+    function turn() {
+      // 清除画布内容
+      context.clearRect(0, 0, canvas.width, canvas.height);
+      var scale = -0.5 * flag;
+      // 坐标参考调整
+      context.translate((canvas.width - image.width * scale) / 2, 0);
+      context.scale(-1 * flag, 1);
+      context.drawImage(image, 0, 0, 300, 300);
+      // 坐标参考还原
+      context.setTransform(1, 0, 0, 1, 0, 0);
+      flag = flag * -1;
+    }
+    function saveFile(data, filename) {
+      //将图片保存到本地
+      var link = document.createElement("a");
+      link.href = data;
+      link.download = filename;
+      var event = document.createEvent("MouseEvents");
+      event.initMouseEvent(
+        "click",
+        true,
+        false,
+        window,
+        0,
+        0,
+        0,
+        0,
+        0,
+        false,
+        false,
+        false,
+        false,
+        0,
+        null
+      );
+      link.dispatchEvent(event);
+    }
+    function download() {
+      var type = "png";
+      //设置保存图片的类型
+      var imgdata = canvas.toDataURL(type);
+      //将mime-type改为image/octet-stream,强制让浏览器下载
+      var fixtype = function (type) {
+        // 把 jpg 修改为 jpeg
+        type = type.toLocaleLowerCase().replace(/jpg/i, "jpeg");
+        // 检查图片类型
+        var r = type.match(/png|jpeg|bmp|gif/)[0];
+        return "image/" + r;
+      };
+      imgdata = imgdata.replace(fixtype(type), "image/octet-stream");
+      var filename = new Date().toLocaleDateString() + "." + type;
+      saveFile(imgdata, filename);
+    }
+
+    (function int() {
+      // 画布对象
+      canvas = document.getElementById("bargraphCanvas");
+      // 画布显示二维图片
+      context = canvas.getContext("2d");
+      loadImg();
+    })();
+  </script>
+</html>
