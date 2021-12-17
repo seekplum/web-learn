@@ -1,39 +1,55 @@
 /**
- * 
+ *
+ * @format
  * 下载阿里云日志
- * 
-*/
+ *
+ */
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 function nextClick() {
-  const next_button = document.getElementsByClassName("next-btn next-btn-normal next-btn-medium next-pagination-item next")[0];
-  if (next_button) next_button.click();
-  return next_button ? !next_button.disabled : false;
+  const nextButton = document.getElementsByClassName(
+    'next-btn next-medium next-btn-normal next-pagination-item next-next'
+  )[0];
+  if (nextButton) nextButton.click();
+  return nextButton ? !nextButton.disabled : false;
 }
 
 function downloadClick() {
-  const download_button = document.getElementsByClassName("next-btn next-btn-normal next-btn-small outcsv")[0];
-  if (download_button) download_button.click();
-  return !!download_button;
+  const downloadButton = Array.from(document.getElementsByClassName('sls-icon')).filter(
+    (elem) => elem.className.baseVal.indexOf('sls-icon style__down-svg__') !== -1
+  )[0];
+  if (downloadButton) {
+    // 模拟鼠标点击
+    const clickEvent = new MouseEvent('click', {
+      view: window,
+      bubbles: true,
+      cancelable: true,
+    });
+    downloadButton.dispatchEvent(clickEvent);
+    // downloadButton.click();
+  }
+  return !!downloadButton;
 }
 
 function confirmClick() {
-  const confirm_button = document.getElementsByClassName("next-btn next-btn-primary next-btn-medium")[0];
-  if (confirm_button) confirm_button.click();
-  return !!confirm_button;
+  const confirmButton = document.getElementsByClassName('next-btn next-medium next-btn-primary next-dialog-btn')[0];
+  if (confirmButton) confirmButton.click();
+  return !!confirmButton;
 }
 
-function cancelClick(){
-  const cancel_buttons = document.getElementsByClassName("next-btn next-btn-normal next-btn-medium");
-  const cancel_button = cancel_buttons[cancel_buttons.length - 1];
-  if (cancel_button) cancel_button.click();
-  return !!cancel_button;
+function cancelClick() {
+  const cancelButtons = document.getElementsByClassName('next-btn next-medium next-btn-normal next-dialog-btn');
+  const cancelButton = cancelButtons[cancelButtons.length - 1];
+  if (cancelButton) cancelButton.click();
+  return !!cancelButton;
 }
 
 function getCurrentPage() {
-  const page = document.getElementsByClassName("next-btn next-btn-normal next-btn-medium next-pagination-item current")[0].textContent;
+  const page = document.getElementsByClassName(
+    'next-btn next-medium next-btn-normal next-pagination-item next-current'
+  )[0].textContent;
   return parseInt(page, 10);
 }
 
@@ -43,14 +59,13 @@ async function main() {
   let page = 1;
   let currentPage = getCurrentPage();
   while (next && currentPage <= page) {
-
     // 点击下一页
     let retry = 5;
     let success = false;
     while (currentPage < page && retry > 0) {
       next = nextClick();
       currentPage = getCurrentPage();
-      console.log("page:", page, "currentPage: ", currentPage, "retry:", retry);
+      console.log('page:', page, 'currentPage: ', currentPage, 'retry:', retry);
       retry = retry - 1;
       await sleep(1000);
     }
@@ -62,12 +77,12 @@ async function main() {
         success = true;
         break;
       } else {
-        console.log("download click: ", i + 1);
+        console.log('download click: ', i + 1);
         await sleep(1000);
       }
     }
     if (!success) {
-      break
+      break;
     }
 
     await sleep(1000);
@@ -78,12 +93,12 @@ async function main() {
         success = true;
         break;
       } else {
-        console.log("confirm click: ", j + 1);
+        console.log('confirm click: ', j + 1);
         await sleep(500);
       }
     }
     if (!success) {
-      break
+      break;
     }
     // await sleep(1000);
     // success = false;
@@ -101,9 +116,9 @@ async function main() {
     // }
     count += 1;
     page = page + 1;
-    console.log("count: ", count, "currentPage:", currentPage);
+    console.log('count: ', count, 'currentPage:', currentPage);
   }
-  console.log("donwload finish: ", count);
+  console.log('download finish: ', count);
 }
 
 main();
