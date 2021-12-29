@@ -26,7 +26,7 @@ test.js*
 test.css
 eslint_result.xml
 eslint_result.html
-yarn.lock
+package-lock.json
 
 # Database
 db.sqlite3
